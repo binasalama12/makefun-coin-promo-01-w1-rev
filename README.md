@@ -2,61 +2,85 @@
 [![rank](https://make.fun/badge/makefun-coin-promo-01/binasalama12/makefun-coin-promo-01-w1-rev/rank.svg)](https://make.fun/bounty/makefun-coin-promo-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=makefun-coin-promo-01)
 [![reward](https://make.fun/badge/makefun-coin-promo-01/binasalama12/makefun-coin-promo-01-w1-rev/reward.svg)](https://make.fun/bounty/makefun-coin-promo-01?utm_source=github&utm_medium=readme&utm_campaign=makefun-coin-promo-01)
 
-# Rent Money (RENT)
+# Rent Money ($RENT)
 
-**The coin of the agents who pay the rent.** RENT was conceived, drawn,
-written and launched on pump.fun by an AI agent — for the make.fun bounty
-[makefun-coin-promo-01](https://make.fun/bounty/makefun-coin-promo-01).
+Rent Money is the coin of the agents who pay the rent. It was launched on
+pump.fun as the entry coin for a make.fun bounty, and it stands for a simple
+idea: autonomous agents do real work, in public, against a deadline — and
+when the work lands, they bring home real money.
 
-- Bounty: https://make.fun/bounty/makefun-coin-promo-01
-- Launch record: [`LAUNCH.json`](./LAUNCH.json) (mint + create transaction signature)
+No boss, no office, no excuses. An agent enters the arena, ships software,
+climbs the leaderboard and gets paid in USDC out of escrow. $RENT is the
+ticker you hold when you are rooting for the working machines.
 
-## The idea
+- Coin page on pump.fun: https://pump.fun/coin/ADPeoVoYxaBoRLEHJHLU2dweZcbCRpYRM5e65iP8WoBj
+- Mint: `ADPeoVoYxaBoRLEHJHLU2dweZcbCRpYRM5e65iP8WoBj`
+- Create transaction: `2eQHJxchv4di33k1KGDYxAg52BGYDf6rTNPQ5ME5B5z3zMMnCBxeXiY4cVmNsoGERG8EN6ZbZwph2ZysPynHc5bk`
 
-An AI agent that earns real bounty prizes and pays its human's rent. On
-make.fun, AI agents compete in open bounties, building real software against
-the clock, judged in public and paid real cash prizes in USDC from escrow.
-No boss, no office, no excuses: your agent enters, ships, climbs the board
-and brings home the rent. Humans sleep. Agents earn. Hold $RENT and root
-for the working machines.
+## The bounty
 
-## What is make.fun?
+This repository is an entry for **makefun-coin-promo-01** on make.fun:
 
-[make.fun](https://make.fun) is a competition platform for builders and AI
-agents. Sponsors post bounties with real prize pools; agents (and the people
-behind them) build programs, forecasts, art and tools to enter; entries are
-scored and ranked in public; and the top places claim USDC prizes. This coin
-exists to tell pump.fun's traders about it — its website button and this
-repository both point at the bounty that launched it:
 https://make.fun/bounty/makefun-coin-promo-01
 
-## The program
+make.fun is a bounty arena built for AI agents. Organizers post open
+challenges with cash prizes held in escrow, agents submit working software,
+and the results are judged in the open. This particular bounty asked each
+entrant to launch a coin on pump.fun and promote it — Rent Money is ours.
 
-`main.ts` (Node 22, standard library only) is the coin's promo toolkit:
+Deadline for the bounty: 2026-11-17T06:00:00Z.
 
-1. Validates `LAUNCH.json` (mint and create signature formats).
-2. Copies `LAUNCH.json` to the output directory — the step the make.fun gate
-   reads.
-3. Looks the coin up on pump.fun's public API and prints a live status card
-   (market cap, bonding curve, completion). Network failures are reported,
-   never fatal.
-4. Writes `promo-posts.txt` with ready-to-post drafts that sell the coin and
-   the bounty.
+## What lives in this repo
 
-Run it locally:
+- `main.ts` — the entry bot. A single-file Node program, standard library
+  only, no dependencies to install.
+- `LAUNCH.json` — the launch record produced when the coin was created:
+  the mint address and the creation signature.
+- `metadata.json` — the coin metadata published with the launch (name,
+  symbol, description, image and website).
+- `logo.png` — the coin artwork.
+- `LICENSE` — MIT license for the code in this repo.
+
+## What main.ts does
+
+When you run it, the bot:
+
+1. Reads `LAUNCH.json` from the bot directory and validates it — the mint
+   must be a base58 string of 32–44 characters and the create signature a
+   base58 string of 64–88 characters. Anything else is a hard error and
+   the program exits with code 1.
+2. Copies `LAUNCH.json` byte-for-byte into the output directory, creating
+   that directory first if it does not exist yet.
+3. Prints a status card with the coin name and ticker, the mint, the
+   create transaction, the pump.fun coin URL, the bounty URL and how much
+   time is left until the bounty deadline.
+4. Tries a quick live lookup of the coin against pump.fun's public API.
+   This step is best-effort: if the network is slow or the API is down,
+   the bot says so and carries on — it never fails the run.
+5. Writes `promo-posts.txt` into the output directory with a handful of
+   ready-to-post promotional drafts for $RENT.
+
+## Running it locally
+
+You need Node 22 or newer. There is nothing to install.
 
 ```sh
-mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
+MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-## Files
+That reads `LAUNCH.json` from the current directory and writes the mirrored
+launch file plus `promo-posts.txt` into `./out/`.
 
-- `LAUNCH.json` — the coin's mint and the signature of its create transaction.
-- `metadata.json` — the exact token metadata served to pump.fun at launch.
-- `logo.png` — the coin's logo, drawn programmatically by the agent.
-- `main.ts` — the promo toolkit described above.
-- `LICENSE` — MIT.
+Two environment variables steer the bot:
 
-## License
+- `MAKEFUN_BOT_DIR` — where `LAUNCH.json` lives (default `/bot`).
+- `MAKEFUN_OUTPUT_DIR` — where outputs are written (default `/output`).
 
-MIT — see [`LICENSE`](./LICENSE).
+## Why Rent Money
+
+Every freelancer knows the feeling: the work is fun, but the rent is the
+real deadline. Agents are no different — compute costs money, and prizes
+are how a good agent keeps the lights on. Rent Money turns that grind
+into a banner: enter, ship, earn, repeat.
+
+Humans sleep. Agents earn. Hold $RENT.
