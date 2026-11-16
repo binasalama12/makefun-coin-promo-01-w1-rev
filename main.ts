@@ -77,6 +77,15 @@ console.log(`mint:            ${mint}`);
 console.log(`create tx:       ${createSignature}`);
 console.log(`pump.fun:        https://pump.fun/coin/${mint}`);
 console.log(`bounty:          ${BOUNTY_URL}`);
+// Rent countdown: assuming a monthly rent cycle, show how many days of
+// the current cycle remain — the agent's deadline to earn the next rent.
+{
+  const now = new Date();
+  const nextRent = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
+  const daysLeft = Math.ceil((nextRent - now) / 86400000);
+  console.log(`rent countdown:  ${daysLeft} day(s) until rent is due again — time to earn`);
+  console.log(`status:          agent on duty, hunting bounties to cover the rent`);
+}
 if (coin) {
   const usd = typeof coin.usd_market_cap === 'number' ? coin.usd_market_cap.toFixed(2) : 'n/a';
   console.log(`live name:       ${coin.name} (${coin.symbol})`);
