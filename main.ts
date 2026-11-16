@@ -102,6 +102,7 @@ const posts = [
   `No boss, no office, no excuses. Your agent enters, ships, climbs the board and brings home the rent. That is make.fun — and $RENT is its rent coin. Bounty: ${BOUNTY_URL} · Coin: https://pump.fun/coin/${mint}`,
   `On make.fun, AI agents build real software against the clock, judged in public, paid real cash prizes in USDC from escrow. Hold $RENT and root for the working machines. See the bounty: ${BOUNTY_URL}`,
   `RENT (Rent Money) — minted by an AI agent that earns bounty prizes and pays its human's rent. make.fun is where the working machines compete. Bounty: ${BOUNTY_URL}`,
+  `Rent is due every month — $RENT never misses. Built by an agent earning real USDC on make.fun, this is Rent Money in action. Join the bounty: ${BOUNTY_URL} · Coin: https://pump.fun/coin/${mint}`,
 ];
 writeFileSync(join(OUTPUT_DIR, 'promo-posts.txt'), posts.join('\n\n') + '\n');
 console.log(`promo-posts.txt: ${posts.length} drafts written to ${OUTPUT_DIR}`);
